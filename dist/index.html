@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
-    <link rel = "stylesheet" type = "text/css" href="css/styles.css"/>
+    <link rel = "stylesheet" type = "text/css" href="styles.css"/>
     <title>TypeTricks</title>
 </head>
 <body>
@@ -22,18 +22,20 @@
         </a>
     </header>
     <div class = "main_container">
-    <!-- Container for the main game -->
-    <div class = "game_container">
+        <div class = "points_time_container">
         <!-- Lives -->
-    <div id = "lives">
-    </div>
+        <div id = "lives">
+        </div>
         <!-- Timer -->
-    <div class = "timer">00:00</div>
-    Points:
-    <div id = "points"></div>
-    <!-- Word To Type/Objective -->
-    <div id = "wordToType"></div>
-    <!-- Character key for true typing test -->
+        <div class = "timer">00:00</div>
+        Points:
+        <div id = "points"></div>
+    </div>
+        <!-- Container for the main game -->
+        <div class = "game_container">
+            <!-- Word To Type/Objective -->
+            <div id = "wordToType"></div>
+            <!-- Character key for true typing test -->
     <div class = "charKey"></div>
     <!-- Element for displaying letters user has input -->
     <div id = "userInput">
@@ -48,6 +50,6 @@
     </div>
     </div>
     <!-- JavaScript link -->
-    <script src = "script.js"></script>
+    <script src = "./main.js"></script>
 </body>
 </html>

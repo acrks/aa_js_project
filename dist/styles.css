@@ -18,7 +18,7 @@ header {
 
 .main_container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     border: 1px solid red;
 }
@@ -79,13 +79,4 @@ input[type=text] {
     width: 33%;
     font-size: 50px;
     text-align: center;
-  }
-
-/* .ui:empty::before {
-    content: attr(placeholder);
-    color: #555; 
 }
-
-.ui:empty:focus::before {
-    content: "";
-} */
