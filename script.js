@@ -22,8 +22,7 @@ class View {
   this.newGame = this.newGame.bind(this)
   this.createBoard = this.createBoard.bind(this)
   this.createHUD()
-  let that = this
-  setTimeout(that.createBoard, 5000)
+  this.createBoard()
   this.bindEvents()
 }
 
@@ -35,28 +34,28 @@ createHUD() {
   const numLives = document.getElementById("lives")
   numLives.innerHTML = "Lives: ";
   for(let i = 0; i < this.player.lives; i++) {
-    numLives.innerHTML += '<img src = "https://restorationhemproject.org/wp-content/uploads/2018/07/heart-png-8.png">'
+    numLives.innerHTML += '<img src = "https://cdn.pixabay.com/photo/2017/09/23/16/33/pixel-heart-2779422_960_720.png">'
   }
   const numPoints = document.getElementById("points")
   numPoints.innerHTML = this.player.score;
+  if(this.player.highscore !== 0) {
+    const hs = document.getElementById("highscore")
+    hs.style.display = "initial"
+    hs.innerText = `High Score: ${this.player.highscore}`
+  }
 }
 
 createBoard() {
  // Display lives
  if(document.getElementById("play_again").style.display === "initial") {
-   document.getElementById("userInput").style.display = "flex"
+  document.getElementById("wordToType").style.display = "initial" 
+  document.getElementById("userInput").style.display = "flex"
    document.getElementById("play_again").style.display = "none"
-  }
-  if(this.player.highscore !== 0) {
-    const hs = document.getElementById("highscore")
-    hs.style.display = "initial"
-    hs.innerText = `High Score: ${this.player.highscore}`
-    document.getElementById("")
+   document.getElementById("timercontainer").style.display = "initial"
   }
  document.getElementById("ui").value = null;
  this.timeLeft = this.randomTimeForTimer(this.game.word.length + 2);
  if(this.player.score === 0) this.timeLeft = 700;
-  console.log(this.timeLeft)
  document.getElementById("wordToType").innerHTML = `${this.game.word}` 
  this.timer = new Countdown(this.timeLeft, this)
   this.timer.start()
@@ -91,7 +90,8 @@ endOfGame() {
 
 initiateShutdown() {
   document.getElementById("lives").innerHTML = "You have no lives left :("
-  document.getElementById("wordToType").innerHTML = "Game Over!"
+  document.getElementById("timercontainer").style.display = "none"
+  document.getElementById("wordToType").style.display = "none"
   document.getElementById("userInput").style.display = "none"
   document.getElementById("play_again").style.display = "initial"
 }
@@ -114,8 +114,8 @@ handleLostLife() {
   const numLives = document.getElementById("lives")
   numLives.innerHTML = "Lives: ";
   for(let i = 0; i < this.player.lives; i++) {
-    numLives.innerHTML += '<img src = "https://restorationhemproject.org/wp-content/uploads/2018/07/heart-png-8.png">'
-}
+    numLives.innerHTML += '<img src = "/Users/aic/Desktop/Coding/aa_js_project/pixel-heart-2779422_960_720.png">'
+  }
 }
 
 handleWinPoints() {
@@ -130,21 +130,20 @@ handleClick(e){
     if (e.key === "Enter") {
       document.getElementById("ui_enter").click();
       let wordToGuess = document.getElementById('ui');
-      this.game.answer = wordToGuess.value
-      this.endOfGame()}; 
-}
+      this.game.answer = wordToGuess.value;
+      this.endOfGame()
+    }; 
+  }
 }
 
 function Countdown(seconds, view) {
   var that = {};
-
   that.elem = document.getElementById("timerdiv");
   that.seconds = seconds * 100;
   that.totalTime = seconds;
   that.usedTime = 0;
   that.startTime = +new Date();
   that.timer = null;
-  that.elem.style.left = "33%"
   that.count = function() {
     that.usedTime = Math.floor((+new Date() - that.startTime) / 10);
 
@@ -162,11 +161,11 @@ function Countdown(seconds, view) {
       that.elem.innerHTML = `${ss + ms}`;
     }
     if(tt < 100) {
-      if(tt < 10) {that.elem.style.left = "45%"}
-      else {that.elem.style.left = "40%"}
+      if(tt < 10) {that.elem.style.left = "49%"}
+      else {that.elem.style.left = "48%"}
     } 
     else {
-      that.elem.style.left = "32%"
+      that.elem.style.left = "46%"
     }
   };
   
@@ -226,8 +225,17 @@ function LogIn() {
   document.getElementById()
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function startGame() {
+  const main = document.getElementById("main_container")
+  main.style.display = "initial"
+  const startbox = document.getElementById("body")
+  startbox.style.display = "none"
   const g = new Game();
   const p1 = new Player();
   new View(p1, g)
-});
+}
+
+const start = document.getElementById("startbox")
+start.addEventListener("click", startGame)
+
+

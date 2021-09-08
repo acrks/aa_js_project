@@ -22,17 +22,28 @@
             <img src= "https://image.flaticon.com/icons/png/512/25/25231.png" alt = "github icon" class = "github_icon"></div>
         </a>
     </header>
-    <div class = "main_container">
+    <div id = "body">
+    <div id = "startbox">Welcome to the weird and wacky world of TypeTricks!<br><br>When you are absolutely ready to start, click here!<br><br><span style="color:red">Warning: Studies have shown game to be extremely addictive, please set aside 2 hours for optimal experience</span></div>
+    </div>
+    <div id = "main_container">
         <div id = "highscore"></div>
         <div class = "points_time_container">
         <!-- Lives -->
         <div id = "lives">
         </div>
-        Points:<br>
-        <div id = "points"></div>
-        <!-- Timer -->
+        <div class = "test">
+            <div class = "purse">
+        <img id="coinimg" src='/Users/aic/Desktop/Coding/aa_js_project/coin_cropped.gif'>
+        <img id="coinimg" src='/Users/aic/Desktop/Coding/aa_js_project/coin_cropped.gif'>
+        <img id="coinimg" src='/Users/aic/Desktop/Coding/aa_js_project/coin_cropped.gif'>:
+        </div>
+        <div id = "points">
+        </div>
+        </div>
     </div>
-    <div>
+    <!-- Timer -->
+    <div id = "timercontainer">
+    <!-- Time Remaining: -->
     Time Remaining:<div id = "timerdiv"></div>
     </div>
         <!-- Container for the main game -->
@@ -49,11 +60,22 @@
         <button id = "ui_enter"></button>
     </div>
     <div id = "play_again">
-    <h1><span id = 'h1p1'>Play<span id = 'h1p3'> Again?</span><h1></h1>
-    <h2><span id = "h1p2" class = "restartGame">Yes</span><span id = "h1p1">&emsp;No</span></h2>
+    <h1>
+        <span style = "color: black">
+            Game Over!
+        </span>
+        <h1>
+            <span id = 'h1p1'>Play<span id = 'h1p3'> Again?</span></h1>
+    <h2>
+        <span id = "h1p2" class = "restartGame">Yes
+        </span>
+        <span id = "h1p1">&emsp;No
+        </span>
+    </h2>
     </div>
     </div>
     </div>
+
     <!-- JavaScript link -->
     <script src = "script.js"></script>
 </body>
