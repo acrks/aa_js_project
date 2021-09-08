@@ -1,5 +1,5 @@
 class Player {
-  constructor(highscore){
+  constructor(highscore = 0){
     this.lives = 3;
     this.score = 0;
     this.highscore = highscore;
@@ -18,35 +18,48 @@ class View {
  constructor(player, game) {
   this.player = player;
   this.game = game;
+  this.handleClick = this.handleClick.bind(this)
+  this.newGame = this.newGame.bind(this)
+  this.createBoard = this.createBoard.bind(this)
+  this.createHUD()
+  let that = this
+  setTimeout(that.createBoard, 5000)
+  this.bindEvents()
+}
+
+createHUD() {
   this.el = document.getElementById('ui');
   this.reset = document.getElementsByClassName("restartGame")[0]
-  
   this.timeLeft = 7;
   this.timeRemaining = true;  
-  this.handleClick = this.handleClick.bind(this)
-  this.createBoard()
-  this.bindEvents()
+  const numLives = document.getElementById("lives")
+  numLives.innerHTML = "Lives: ";
+  for(let i = 0; i < this.player.lives; i++) {
+    numLives.innerHTML += '<img src = "https://restorationhemproject.org/wp-content/uploads/2018/07/heart-png-8.png">'
+  }
+  const numPoints = document.getElementById("points")
+  numPoints.innerHTML = this.player.score;
 }
 
 createBoard() {
  // Display lives
+ if(document.getElementById("play_again").style.display === "initial") {
+   document.getElementById("userInput").style.display = "flex"
+   document.getElementById("play_again").style.display = "none"
+  }
+  if(this.player.highscore !== 0) {
+    const hs = document.getElementById("highscore")
+    hs.style.display = "initial"
+    hs.innerText = `High Score: ${this.player.highscore}`
+    document.getElementById("")
+  }
  document.getElementById("ui").value = null;
- const numLives = document.getElementById("lives")
- numLives.innerHTML = "Lives: ";
- for(let i = 0; i < this.player.lives; i++) {
-     numLives.innerHTML += '<img src = "https://restorationhemproject.org/wp-content/uploads/2018/07/heart-png-8.png">'
- }
- // Display points
- const numPoints = document.getElementById("points")
- numPoints.innerHTML = this.player.score;
- // Display word
- let num= this.randomTimerForTimer(this.game.word.length + 2);
- if(this.player.score === 0) num = 700;
- console.log(this.game.word)
- 
- document.getElementById("wordToType").innerHTML = `${this.game.word}`
- this.timer = new Countdown(num, this)
- this.timer.start()
+ this.timeLeft = this.randomTimeForTimer(this.game.word.length + 2);
+ if(this.player.score === 0) this.timeLeft = 700;
+  console.log(this.timeLeft)
+ document.getElementById("wordToType").innerHTML = `${this.game.word}` 
+ this.timer = new Countdown(this.timeLeft, this)
+  this.timer.start()
 }
 
 bindEvents() {
@@ -55,7 +68,7 @@ bindEvents() {
   this.reset.addEventListener("click", this.newGame)
 }
 
-randomTimerForTimer(max) {
+randomTimeForTimer(max) {
   return Math.floor(Math.random() * (max - 2) + 2) * 100
 }
 
@@ -73,7 +86,7 @@ endOfGame() {
   }
   this.timeRemaining = true
   this.game = new Game();
-  this.createBoard();
+  setTimeout(this.createBoard, 5000)
 }
 
 initiateShutdown() {
@@ -85,28 +98,31 @@ initiateShutdown() {
 
 newGame(e) {
   e.preventDefault();
-  let that = this;
-  this.player = new Player()
-  const p1 = new Player();
-  const g = new Game();
-  const el = document.getElementById('ui');
-  if(that.player.score > that.player.highscore) {
-    p1 = new Player(that.player.score);
+  if(this.player.score > this.player.highscore) {
+    this.player = new Player(this.player.score)
   }
   else{
-    p1 = new Player(that.player.highscore);
+    this.player = new Player(this.player.highscore);
   }
+  this.game = new Game();
+  this.createHUD()
+  this.createBoard()
 }
 
 handleLostLife() {
   this.player.loseLife()
+  const numLives = document.getElementById("lives")
+  numLives.innerHTML = "Lives: ";
+  for(let i = 0; i < this.player.lives; i++) {
+    numLives.innerHTML += '<img src = "https://restorationhemproject.org/wp-content/uploads/2018/07/heart-png-8.png">'
+}
 }
 
 handleWinPoints() {
-  let pointsToAdd = (this.timeLeft * 100) - this.timer.usedTime;
+  let pointsToAdd = (this.timeLeft) - this.timer.usedTime;
   this.player.winPoints(pointsToAdd);
   let numPoints = document.getElementById("points")
-  numPoints.innerHTML = this.player.points;
+  numPoints.innerHTML = this.player.score;
 }
 
 handleClick(e){
@@ -128,7 +144,7 @@ function Countdown(seconds, view) {
   that.usedTime = 0;
   that.startTime = +new Date();
   that.timer = null;
-
+  that.elem.style.left = "33%"
   that.count = function() {
     that.usedTime = Math.floor((+new Date() - that.startTime) / 10);
 
@@ -138,11 +154,19 @@ function Countdown(seconds, view) {
       view.timeRemaining = false;
       view.endOfGame();
       clearInterval(that.timer);
-    } else {
+    } 
+    else {
       var ss = Math.floor(tt / 100) * 100;
       var ms = tt - Math.floor(tt / 100) * 100;
-
+      
       that.elem.innerHTML = `${ss + ms}`;
+    }
+    if(tt < 100) {
+      if(tt < 10) {that.elem.style.left = "45%"}
+      else {that.elem.style.left = "40%"}
+    } 
+    else {
+      that.elem.style.left = "32%"
     }
   };
   
@@ -196,12 +220,14 @@ Game.prototype.isOver = function(player) {
     return true
   }
   return false;
- 
+}
+
+function LogIn() {
+  document.getElementById()
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const g = new Game();
-  
-  const p1 = new Player(0);
+  const p1 = new Player();
   new View(p1, g)
 });

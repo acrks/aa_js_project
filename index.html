@@ -23,6 +23,7 @@
         </a>
     </header>
     <div class = "main_container">
+        <div id = "highscore"></div>
         <div class = "points_time_container">
         <!-- Lives -->
         <div id = "lives">
@@ -31,8 +32,9 @@
         <div id = "points"></div>
         <!-- Timer -->
     </div>
-        Time Remaining:
-        <div id = "timerdiv"></div>
+    <div>
+    Time Remaining:<div id = "timerdiv"></div>
+    </div>
         <!-- Container for the main game -->
         <div class = "game_container">
             <!-- Word To Type/Objective -->
@@ -42,7 +44,7 @@
     <!-- Element for displaying letters user has input -->
     <div id = "userInput">
         <!-- <span contenteditable id = "ui" placeholder= "TYPE HERE!"></span> -->
-        <input type = "text" id ="ui" placeholder= "TYPE HERE!!!">
+        <input type = "text" id ="ui" placeholder= "TYPE HERE!!!" autofocus>
         </input>
         <button id = "ui_enter"></button>
     </div>
