@@ -21,9 +21,31 @@ class View {
   this.handleClick = this.handleClick.bind(this)
   this.newGame = this.newGame.bind(this)
   this.createBoard = this.createBoard.bind(this)
+  this.populateDictionary = this.populateDictionary.bind(this)
+  this.dictionarr = []
+  this.populateDictionary()
   this.createHUD()
   this.createBoard()
   this.bindEvents()
+}
+
+populateDictionary() {
+  let that = this;
+  for(let i = 0; i < 100; i++) {
+    $.ajax({
+        type: 'GET',
+        url: "https://random-words-api.vercel.app/word",
+        success(data) {
+          let result = data[0].word
+          console.log(data[0].word);
+          console.log(data[0].definition);          
+          that.dictionarr.push(result.toLowerCase())
+        },
+        error() {
+          console.error("An error occurred.");
+        },
+     });
+    }
 }
 
 createHUD() {
@@ -53,9 +75,14 @@ createBoard() {
    document.getElementById("play_again").style.display = "none"
    document.getElementById("timercontainer").style.display = "initial"
   }
+  this.game.word = this.dictionarr.shift()
  document.getElementById("ui").value = null;
- this.timeLeft = this.randomTimeForTimer(this.game.word.length + 2);
- if(this.player.score === 0) this.timeLeft = 700;
+ if(this.game.word === undefined || this.player.score === 0) 
+ {this.timeLeft = 700
+  this.game.word = Game.STARTERWORDS[Math.floor(Math.random()*Game.STARTERWORDS.length)]}
+ else {
+  this.timeLeft = this.randomTimeForTimer(this.game.word.length + 2, this.game.word.length - 3);
+ }
  document.getElementById("wordToType").innerHTML = `${this.game.word}` 
  this.timer = new Countdown(this.timeLeft, this)
   this.timer.start()
@@ -67,8 +94,8 @@ bindEvents() {
   this.reset.addEventListener("click", this.newGame)
 }
 
-randomTimeForTimer(max) {
-  return Math.floor(Math.random() * (max - 2) + 2) * 100
+randomTimeForTimer(max, min) {
+  return Math.floor(Math.random() * (max - min) + min) * 100
 }
 
 endOfGame() {
@@ -193,13 +220,13 @@ function Countdown(seconds, view) {
 }
 
 function Game() {
-  this.word = this.getRandomWord()
+  // this.word = this.getRandomWord()
 }
 
 Game.miniGames = [this.gameOne, this.gameTwo, this.gameThree]
 
 // Array for now, will convert to object/dictionary in future
-Game.STARTERWORDS = ["dog", "cat", "frog", "bongo"]
+Game.STARTERWORDS = ["apple", "fox", "sheep", "for", "lobster", "dog", "cat", "frog", "bongo"]
 
 
 // Get 100 random words from API
@@ -237,5 +264,7 @@ function startGame() {
 
 const start = document.getElementById("startbox")
 start.addEventListener("click", startGame)
+
+
 
 
