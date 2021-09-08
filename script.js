@@ -1,7 +1,7 @@
 class Player {
-  constructor(highscore = 0){
+  constructor(highscore){
     this.lives = 3;
-    this.points = 0;
+    this.score = 0;
     this.highscore = highscore;
   }
 
@@ -10,15 +10,17 @@ class Player {
   }
 
   winPoints(points) {
-    this.points += points;
+    this.score += points;
   }
 }
 
 class View {
- constructor(player, game, el) {
+ constructor(player, game) {
   this.player = player;
   this.game = game;
-  this.el = el;
+  this.el = document.getElementById('ui');
+  this.reset = document.getElementsByClassName("restartGame")[0]
+  
   this.timeLeft = 7;
   this.timeRemaining = true;  
   this.handleClick = this.handleClick.bind(this)
@@ -36,10 +38,12 @@ createBoard() {
  }
  // Display points
  const numPoints = document.getElementById("points")
- numPoints.innerHTML = this.player.points;
+ numPoints.innerHTML = this.player.score;
  // Display word
  let num= this.randomTimerForTimer(this.game.word.length + 2);
- if(this.player.points === 0) num = 700;
+ if(this.player.score === 0) num = 700;
+ console.log(this.game.word)
+ 
  document.getElementById("wordToType").innerHTML = `${this.game.word}`
  this.timer = new Countdown(num, this)
  this.timer.start()
@@ -48,6 +52,7 @@ createBoard() {
 bindEvents() {
   // Install a click listener on the board
   this.el.addEventListener("keyup", this.handleClick)
+  this.reset.addEventListener("click", this.newGame)
 }
 
 randomTimerForTimer(max) {
@@ -66,6 +71,7 @@ endOfGame() {
       return
     }
   }
+  this.timeRemaining = true
   this.game = new Game();
   this.createBoard();
 }
@@ -75,6 +81,21 @@ initiateShutdown() {
   document.getElementById("wordToType").innerHTML = "Game Over!"
   document.getElementById("userInput").style.display = "none"
   document.getElementById("play_again").style.display = "initial"
+}
+
+newGame(e) {
+  e.preventDefault();
+  let that = this;
+  this.player = new Player()
+  const p1 = new Player();
+  const g = new Game();
+  const el = document.getElementById('ui');
+  if(that.player.score > that.player.highscore) {
+    p1 = new Player(that.player.score);
+  }
+  else{
+    p1 = new Player(that.player.highscore);
+  }
 }
 
 handleLostLife() {
@@ -89,14 +110,12 @@ handleWinPoints() {
 }
 
 handleClick(e){
-  {
     e.preventDefault();
     if (e.key === "Enter") {
       document.getElementById("ui_enter").click();
       let wordToGuess = document.getElementById('ui');
       this.game.answer = wordToGuess.value
       this.endOfGame()}; 
-  };
 }
 }
 
@@ -182,7 +201,7 @@ Game.prototype.isOver = function(player) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const g = new Game();
-  const el = document.getElementById('ui');
-  const p1 = new Player();
-  new View(p1, g, el)
+  
+  const p1 = new Player(0);
+  new View(p1, g)
 });

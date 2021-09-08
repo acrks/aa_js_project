@@ -110,7 +110,7 @@ ul {
 }
 
 #timerdiv {
-    width: 50%;
+    width: auto;
     height: auto;
     font-size: 75px;
     text-align: center;
@@ -152,7 +152,7 @@ input[type=text] {
     border-radius: 50px;
     background-color: white;
     border: 5px solid #FBB149;
-    color: inherit
+    color: inherit;
 }
 
 h1 span {
@@ -170,13 +170,11 @@ h1 span {
 
 #play_again {
     display: none;
-
-}
-
-#play_again h2 {
+    text-align: center;
     justify-content: center;
     align-items: center;
 }
+
 
 h2{
     font-size: 80px;
