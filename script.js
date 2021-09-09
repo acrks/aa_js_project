@@ -127,13 +127,15 @@ displayMessage(won) {
   setTimeout(function() {
     timer.style.zoom = 1;
     game.style.zoom = 1;
-    ui.style.width = "40%"
+    // ui.style.width = "40%"
+    ui.style.display = "initial"
     messagebox.style.display = "none"
     word.style.display = "initial"
+    ui.focus()
   }, 5000)
   timer.style.zoom = 0.5;
   game.style.zoom = 0.5;
-  ui.style.width = "10%";
+  ui.style.display = "none"
   messagebox.style.display = "flex"
   word.style.display = "none"
   if(won) {
@@ -269,7 +271,7 @@ Game.prototype.getRandomWord = function() {
 }
 
 Game.prototype.isOver = function(player) {
-  if(player.lives === 0) {
+  if(player.lives <= 0) {
     return true
   }
   return false;
