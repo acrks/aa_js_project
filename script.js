@@ -23,6 +23,7 @@ class View {
   this.createBoard = this.createBoard.bind(this)
   this.populateDictionary = this.populateDictionary.bind(this)
   this.displayMessage = this.displayMessage.bind(this)
+  this.exitGame = this.exitGame.bind(this)
   this.dictionarr = []
   this.populateDictionary()
   this.createHUD()
@@ -59,6 +60,7 @@ populateDictionary() {
 createHUD() {
   this.el = document.getElementById('ui');
   this.reset = document.getElementsByClassName("restartGame")[0]
+  this.exit = document.getElementsByClassName("exitGame")[0]
   this.timeLeft = 7;
   this.timeRemaining = true;  
   const numLives = document.getElementById("lives")
@@ -102,6 +104,13 @@ bindEvents() {
   // Install a click listener on the board
   this.el.addEventListener("keyup", this.handleClick)
   this.reset.addEventListener("click", this.newGame)
+  this.exit.addEventListener("click", this.exitGame)
+}
+
+exitGame() {
+  const goodbye = document.getElementById("play_again")
+  goodbye.innerHTML = `<h2>Hate to see you go! Your highscore for this session was ${this.player.highscore}</h2>`
+  return
 }
 
 randomTimeForTimer(max, min) {
@@ -135,10 +144,10 @@ displayMessage(won) {
   const ui = document.getElementById("ui")
   const messagebox = document.getElementById("message")
   const word = document.getElementById("wordToType")
+  const foot = document.getElementById("foot")
   setTimeout(function() {
     timer.style.zoom = 1;
     game.style.zoom = 1;
-    // ui.style.width = "40%"
     ui.style.display = "initial"
     messagebox.style.display = "none"
     word.style.display = "initial"
