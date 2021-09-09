@@ -32,13 +32,22 @@ class View {
 
 populateDictionary() {
   let that = this;
+  let alphabet = "abcdefghijklmnopqrstuvwxyz"
   for(let i = 0; i < 100; i++) {
     $.ajax({
         type: 'GET',
         url: "https://random-words-api.vercel.app/word",
         success(data) {
-          let result = data[0].word        
-          that.dictionarr.push(result.toLowerCase())
+          let outcome = true;
+          let result = data[0].word.toLowerCase()
+          for(let i = 0; i < result.length; i++) {
+            if(!alphabet.includes(result[i])) {
+              outcome = false
+            }
+          }
+          if(outcome) {
+            that.dictionarr.push(result)
+          }        
         },
         error() {
           console.error("An error occurred.");
