@@ -137,7 +137,7 @@ displayMessage(won) {
   messagebox.style.display = "flex"
   word.style.display = "none"
   if(won) {
-    messagebox.innerHTML = `YOU ${pointsToAdd} POINTS.<br>GET READY FOR THE NEXT ROUND!`}
+    messagebox.innerHTML = `YOU WON ${pointsToAdd} POINTS.<br>GET READY FOR THE NEXT ROUND!`}
   else {
     messagebox.innerHTML = `YOU LOST A LIFE!<br>BE CAREFUL, YOU ONLY HAVE ${this.player.lives} LEFT`
   }
