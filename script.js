@@ -38,8 +38,8 @@ populateDictionary() {
         url: "https://random-words-api.vercel.app/word",
         success(data) {
           let result = data[0].word
-          console.log(data[0].word);
-          console.log(data[0].definition);          
+          // console.log(data[0].word);
+          // console.log(data[0].definition);          
           that.dictionarr.push(result.toLowerCase())
         },
         error() {
