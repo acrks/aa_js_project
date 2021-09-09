@@ -23,7 +23,13 @@
         </a>
     </header>
     <div id = "body">
-    <div id = "startbox">Welcome to the weird and wacky world of TypeTricks!<br><br>When you are absolutely ready to start, click here!<br><br><span style="color:red">Warning: Studies have shown game to be extremely addictive, please set aside 2 hours for optimal experience</span></div>
+    <div id = "startbox">
+        Welcome to the weird and wacky world of TypeTricks!<br><br>
+        When you are absolutely ready to start, click here!<br><br>
+        <span style="color:red">
+            Warning: Studies have shown game to be extremely addictive, please set aside 2 hours for optimal experience
+        </span>
+    </div>
     </div>
     <div id = "main_container">
         <div id = "highscore"></div>
@@ -47,7 +53,8 @@
     Time Remaining:<div id = "timerdiv"></div>
     </div>
         <!-- Container for the main game -->
-        <div class = "game_container">
+    <div id = "message"></div>
+    <div id = "game_container">
             <!-- Word To Type/Objective -->
             <div id = "wordToType"></div>
             <!-- Character key for true typing test -->
@@ -60,16 +67,19 @@
         <button id = "ui_enter"></button>
     </div>
     <div id = "play_again">
-    <h1>
+        <h1>
         <span style = "color: black">
             Game Over!
         </span>
         <h1>
-            <span id = 'h1p1'>Play<span id = 'h1p3'> Again?</span></h1>
-    <h2>
-        <span id = "h1p2" class = "restartGame">Yes
+            <span id = 'h1p1'>Play<span id = 'h1p3'> Again?</span>
+        </h1>
+        <h2>
+        <span id = "h1p2" class = "restartGame">
+            Yes
         </span>
-        <span id = "h1p1">&emsp;No
+        <span id = "h1p1">
+            &emsp;No
         </span>
     </h2>
     </div>

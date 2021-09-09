@@ -9,8 +9,6 @@ body {
     height: 100%;
     background-color: #FFF7D9;
     background-size: cover;
-    /* animation-name: example;
-    animation-duration: 8s; */
     text-shadow: 1px 1px 1px rgba(0, 0, 0);
     image-rendering: pixelated;
     animation-iteration-count:infinite;
@@ -71,6 +69,7 @@ header {
     animation-name: example;
     animation-duration: 8s;
     box-shadow: 1px 1px 1px rgba(0, 0, 0);
+    text-shadow: 1px 1px 2px rgb(255, 255, 255);
 }
 
 .transition {
@@ -120,10 +119,9 @@ h1 {
 .linkedin_icon {
     width: 50px;
     height: 50px;
-
 }
 
-.game_container,
+#game_container,
 .points_time_container {
     margin-top: 50px;
     width: 95%;
@@ -135,7 +133,7 @@ h1 {
 }
 
 
-.game_container {
+#game_container {
     width: 100%;
 }
 .points_time_container {
@@ -232,7 +230,7 @@ ul {
 input[type=text] {
     padding: 10px;
     font-family: inherit;
-    width: 50%;
+    width: 40%;
     font-size: 50px;
     text-align: center;
     border-radius: 50px;
@@ -294,4 +292,43 @@ h2{
 #h1p3 {
     
     -webkit-text-stroke-color: #733381;
+}
+
+#message {
+    display: none;
+    border: 1px solid lightgreen;
+    position: absolute;
+    color: white;
+    left: 25%;
+    top: 75%;
+    width: 50%;
+    height: 400px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    padding: 10px;
+    border: 10px solid #67D0DD;
+    box-shadow:inset 0px 0px 0px 10px #F6E785;
+    animation-iteration-count:infinite;
+    animation-name: example2;
+    animation-duration: 3s;
+    border-radius: 30px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0);
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+@keyframes example2 {
+    0% { background: linear-gradient(60deg, #67D0DD 10%, #DC95DD 100%); }
+    9% { background: linear-gradient(60deg, #67D0DD 10%, #DC95DD 100%); }
+    20% { background: linear-gradient(60deg, #67D0DD 20%, #DC95DD 80%); }
+    29% { background: linear-gradient(60deg, #67D0DD 20%, #DC95DD 80%); }
+    40% { background: linear-gradient(60deg, #67D0DD 40%, #DC95DD 60%); }
+    49% { background: linear-gradient(60deg, #67D0DD 40%, #DC95DD 60%); }
+    60% { background: linear-gradient(60deg, #67D0DD 60%, #DC95DD 40%); }
+    69.5% { background: linear-gradient(60deg, #67D0DD 60%, #DC95DD 40%); }
+    80% { background: linear-gradient(60deg, #67D0DD 80%, #DC95DD 20%); }
+    89% { background: linear-gradient(60deg, #67D0DD 80%, #DC95DD 20%); }
+    100% { background: linear-gradient(60deg, #67D0DD 90%, #DC95DD 10%); 
+        background-size: cover;}
 }

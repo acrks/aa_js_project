@@ -22,6 +22,7 @@ class View {
   this.newGame = this.newGame.bind(this)
   this.createBoard = this.createBoard.bind(this)
   this.populateDictionary = this.populateDictionary.bind(this)
+  this.displayMessage = this.displayMessage.bind(this)
   this.dictionarr = []
   this.populateDictionary()
   this.createHUD()
@@ -100,7 +101,9 @@ randomTimeForTimer(max, min) {
 
 endOfGame() {
   this.timer.stop()
+  let outcome = false;
   if(this.timeRemaining && this.game.checkWord()) {
+    outcome = true;
     this.handleWinPoints();
   }
   else {
@@ -112,7 +115,34 @@ endOfGame() {
   }
   this.timeRemaining = true
   this.game = new Game();
+  this.displayMessage(outcome)
   setTimeout(this.createBoard, 5000)
+}
+
+displayMessage(won) {
+  let pointsToAdd = (this.timeLeft) - this.timer.usedTime
+  const game = document.getElementById("game_container")
+  const timer = document.getElementById("timerdiv")
+  const ui = document.getElementById("ui")
+  const messagebox = document.getElementById("message")
+  const word = document.getElementById("wordToType")
+  setTimeout(function() {
+    timer.style.zoom = 1;
+    game.style.zoom = 1;
+    ui.style.width = "40%"
+    messagebox.style.display = "none"
+    word.style.display = "initial"
+  }, 5000)
+  timer.style.zoom = 0.5;
+  game.style.zoom = 0.5;
+  ui.style.width = "10%";
+  messagebox.style.display = "flex"
+  word.style.display = "none"
+  if(won) {
+    messagebox.innerHTML = `YOU ${pointsToAdd} POINTS.<br>GET READY FOR THE NEXT ROUND!`}
+  else {
+    messagebox.innerHTML = `YOU LOST A LIFE!<br>BE CAREFUL, YOU ONLY HAVE ${this.player.lives} LEFT`
+  }
 }
 
 initiateShutdown() {
@@ -226,8 +256,7 @@ function Game() {
 Game.miniGames = [this.gameOne, this.gameTwo, this.gameThree]
 
 // Array for now, will convert to object/dictionary in future
-Game.STARTERWORDS = ["apple", "fox", "sheep", "for", "lobster", "dog", "cat", "frog", "bongo"]
-
+Game.STARTERWORDS = ["across","against","answer","awhile","between","board","bottom","breakfast","broken","build","building","built","captain","carried","caught","charge","chicken","circus","cities","clothes","company","country","discover","doctor","dollar","during","eighth","enjoy","enough","everybody","example","except","excuse","field","fifth","finish","following","group","happened","harden","heavy","held","hospital","idea","instead","known","laugh","middle","minute","mountain","ninth","ocean","office","parent","peanut","pencil","picnic","police","pretty","prize","quite","radio","raise","really","reason","remember","scare","second","since","slowly","stories","student","sudden","suit","sure","swimming","though","threw","tired","together","tomorrow","toward","tried","trouble","truly","turtle","until","village","visit","wear","whole","whose","women","writing","written","wrote","yell","young"]
 
 // Get 100 random words from API
 Game.prototype.checkWord = function(){
