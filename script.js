@@ -55,7 +55,7 @@ createHUD() {
   const numLives = document.getElementById("lives")
   numLives.innerHTML = "Lives: ";
   for(let i = 0; i < this.player.lives; i++) {
-    numLives.innerHTML += '<img src = "https://cdn.pixabay.com/photo/2017/09/23/16/33/pixel-heart-2779422_960_720.png">'
+    numLives.innerHTML += '<img src = "https://raw.githubusercontent.com/acrks/aa_js_project/main/pixel-heart-2779422_960_720.png">'
   }
   const numPoints = document.getElementById("points")
   numPoints.innerHTML = this.player.score;
@@ -169,7 +169,7 @@ handleLostLife() {
   const numLives = document.getElementById("lives")
   numLives.innerHTML = "Lives: ";
   for(let i = 0; i < this.player.lives; i++) {
-    numLives.innerHTML += '<img src = "/Users/aic/Desktop/Coding/aa_js_project/pixel-heart-2779422_960_720.png">'
+    numLives.innerHTML += '<img src = "https://raw.githubusercontent.com/acrks/aa_js_project/main/pixel-heart-2779422_960_720.png">'
   }
 }
 
