@@ -342,7 +342,7 @@ h2{
 }
 
 footer {
-    display: none;
+    display: flex;
     /* position: absolute;
     bottom: -500%; */
     justify-content: center;

@@ -120,25 +120,42 @@ randomTimeForTimer(max, min) {
 endOfGame() {
   this.timer.stop()
   let outcome = false;
+  this.lowerMainMusic()
   if(this.timeRemaining && this.game.checkWord()) {
     outcome = true;
+    if(myAudio.currentTime > 0 && myAudio.volume > 0) {
+      myWinAudio.play()
+    }
     this.handleWinPoints();
   }
   else {
     this.handleLostLife();
     if(this.game.isOver(this.player)) {
-      myGameOverAudio.play()
+      if(myAudio.currentTime > 0 && myAudio.volume > 0) {
+        myGameOverAudio.play()
+      }
       this.initiateShutdown();
       return
     }
     else {
-      myLoseAudio.play()
+      if(myAudio.currentTime > 0 && myAudio.volume > 0) {
+        myLoseAudio.play()
+      }
     }
   }
   this.timeRemaining = true
   this.game = new Game();
   this.displayMessage(outcome)
   setTimeout(this.createBoard, 5000)
+}
+
+lowerMainMusic() {
+  if(myAudio.volume > 0) {
+  myAudio.volume = 0.1
+  setTimeout(function () {
+    myAudio.volume = 0.5
+  }, 2500)
+  }
 }
 
 displayMessage(won) {
@@ -148,7 +165,6 @@ displayMessage(won) {
   const ui = document.getElementById("ui")
   const messagebox = document.getElementById("message")
   const word = document.getElementById("wordToType")
-  const foot = document.getElementById("foot")
   setTimeout(function() {
     timer.style.zoom = 1;
     game.style.zoom = 1;
@@ -201,7 +217,6 @@ handleLostLife() {
 }
 
 handleWinPoints() {
-  myWinAudio.play()
   let pointsToAdd = (this.timeLeft) - this.timer.usedTime;
   this.player.winPoints(pointsToAdd);
   if(this.player.score > this.player.highscore) {
@@ -321,6 +336,9 @@ function handleAudio() {
     music.style.backgroundImage = "url(https://raw.githubusercontent.com/acrks/aa_js_project/main/audio_off.png)"
   }
   else {
+    myGameOverAudio.volume = 0;
+    myLoseAudio.volume = 0;
+    myWinAudio.volume = 0;
     myAudio.volume = 0;
     music.style.backgroundImage = "url(https://raw.githubusercontent.com/acrks/aa_js_project/main/audio_on.png)"
   }
@@ -335,6 +353,18 @@ function startGame() {
   startbox.style.display = "none"
   const g = new Game();
   const p1 = new Player();
+  new View(p1, g)
+}
+
+function loadPage() {
+  loadMusic()
+  const music = document.getElementById("music_buttons")
+  music.addEventListener("click", handleAudio)
+  const start = document.getElementById("startbox")
+  start.addEventListener("click", startGame)
+}
+
+function loadMusic() {
   myAudio = new Audio('https://raw.githubusercontent.com/acrks/aa_js_project/main/bgmusic.mp3')
   myWinAudio = new Audio('https://raw.githubusercontent.com/acrks/aa_js_project/main/win_music.mp3')
   myLoseAudio = new Audio('https://raw.githubusercontent.com/acrks/aa_js_project/main/lose_music.mp3')
@@ -342,13 +372,9 @@ function startGame() {
   myWinAudio.volume = 0.5
   myLoseAudio.volume = 0.5
   myGameOverAudio.volume = 0.5
-  const music = document.getElementById("music_buttons")
-  music.addEventListener("click", handleAudio)
-  new View(p1, g)
 }
 
-const start = document.getElementById("startbox")
-start.addEventListener("click", startGame)
+loadPage()
 
 
 
