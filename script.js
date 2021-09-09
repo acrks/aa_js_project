@@ -292,13 +292,31 @@ function LogIn() {
   document.getElementById()
 }
 
+function handleAudio() {
+  const music = document.getElementById("music_buttons")
+  if(myAudio.volume === 0) {
+    myAudio.volume = 0.5;
+    music.style.backgroundImage = "url(/Users/aic/Desktop/Coding/aa_js_project/audio_off.png)"
+  }
+  else {
+    myAudio.volume = 0;
+    music.style.backgroundImage = "url(/Users/aic/Desktop/Coding/aa_js_project/audio_on.png)"
+  }
+}
+
 function startGame() {
   const main = document.getElementById("main_container")
+  const foot = document.getElementById("footer")
+  foot.style.display = "flex"
   main.style.display = "initial"
   const startbox = document.getElementById("body")
   startbox.style.display = "none"
   const g = new Game();
   const p1 = new Player();
+  myAudio = new Audio('/Users/aic/Desktop/Coding/aa_js_project/Lego Racers Music - Build Mode.mp3')
+  myAudio.play();
+  const music = document.getElementById("music_buttons")
+  music.addEventListener("click", handleAudio)
   new View(p1, g)
 }
 
