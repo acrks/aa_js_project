@@ -93,7 +93,7 @@ createBoard() {
  {this.timeLeft = 700
   this.game.word = Game.STARTERWORDS[Math.floor(Math.random()*Game.STARTERWORDS.length)]}
  else {
-  this.timeLeft = this.randomTimeForTimer(this.game.word.length + 2, this.game.word.length - 3);
+  this.timeLeft = this.randomTimeForTimer(this.game.word.length, this.game.word.length - 5);
  }
  document.getElementById("wordToType").innerHTML = `${this.game.word}` 
  this.timer = new Countdown(this.timeLeft, this)
@@ -109,7 +109,7 @@ bindEvents() {
 
 exitGame() {
   const goodbye = document.getElementById("play_again")
-  goodbye.innerHTML = `<h2>Hate to see you go! Your highscore for this session was ${this.player.highscore}</h2>`
+  goodbye.innerHTML = `<h2><span id = "h1p2">Hate to see you go!</span><br><span id = "h1p1">Your highscore for this session was</span><br><span id = "h1p3">${this.player.highscore}</span></h2>`
   return
 }
 
@@ -179,12 +179,7 @@ initiateShutdown() {
 
 newGame(e) {
   e.preventDefault();
-  if(this.player.score > this.player.highscore) {
-    this.player = new Player(this.player.score)
-  }
-  else{
-    this.player = new Player(this.player.highscore);
-  }
+  this.player = new Player(this.player.highscore);
   this.game = new Game();
   this.createHUD()
   this.createBoard()
@@ -203,6 +198,9 @@ handleWinPoints() {
   myWinAudio.play()
   let pointsToAdd = (this.timeLeft) - this.timer.usedTime;
   this.player.winPoints(pointsToAdd);
+  if(this.player.score > this.player.highscore) {
+    this.player.highscore = this.player.score
+  }
   let numPoints = document.getElementById("points")
   numPoints.innerHTML = this.player.score;
 }
