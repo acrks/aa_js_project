@@ -17,17 +17,17 @@ body {
 }
 
 @keyframes example {
-    0% { background: linear-gradient(80deg, #7BB662 10%, #994FB2 100%); }
-    9% { background: linear-gradient(80deg, #7BB662 10%, #994FB2 100%); }
-    20% { background: linear-gradient(80deg, #7BB662 20%, #994FB2 80%); }
-    29% { background: linear-gradient(80deg, #7BB662 20%, #994FB2 80%); }
-    40% { background: linear-gradient(80deg, #7BB662 40%, #994FB2 60%); }
-    49% { background: linear-gradient(80deg, #7BB662 40%, #994FB2 60%); }
-    60% { background: linear-gradient(80deg, #7BB662 60%, #994FB2 40%); }
-    69.5% { background: linear-gradient(80deg, #7BB662 60%, #994FB2 40%); }
-    80% { background: linear-gradient(80deg, #7BB662 80%, #994FB2 20%); }
-    89% { background: linear-gradient(80deg, #7BB662 80%, #994FB2 20%); }
-    100% { background: linear-gradient(80deg, #7BB662 90%, #994FB2 10%); 
+    0% { background: linear-gradient(80deg, #9FE481  10%, #A885EE 100%); }
+    9% { background: linear-gradient(80deg, #9FE481  10%, #A885EE 100%); }
+    20% { background: linear-gradient(80deg, #9FE481  20%, #A885EE 80%); }
+    29% { background: linear-gradient(80deg, #9FE481  20%, #A885EE 80%); }
+    40% { background: linear-gradient(80deg, #9FE481  40%, #A885EE 60%); }
+    49% { background: linear-gradient(80deg, #9FE481  40%, #A885EE 60%); }
+    60% { background: linear-gradient(80deg, #9FE481  60%, #A885EE 40%); }
+    69.5% { background: linear-gradient(80deg, #9FE481  60%, #A885EE 40%); }
+    80% { background: linear-gradient(80deg, #9FE481  80%, #A885EE 20%); }
+    89% { background: linear-gradient(80deg, #9FE481  80%, #A885EE 20%); }
+    100% { background: linear-gradient(80deg, #9FE481  90%, #A885EE 10%); 
         background-size: cover;}
 }
 
@@ -63,7 +63,7 @@ header {
     justify-content: center;
     font-size: 30px;
     padding: 10px;
-    border: 10px solid #994FB2;
+    border: 10px solid #A885EE;
     box-shadow:inset 0px 0px 0px 10px #FBB149;
     animation-iteration-count:infinite;
     animation-name: example;
@@ -286,7 +286,7 @@ h2{
 }
 
 #h1p2 {
-    -webkit-text-stroke-color: #589C48;
+    -webkit-text-stroke-color: #5dc445;
 }
 
 #h1p3 {

@@ -74,6 +74,8 @@ createBoard() {
    document.getElementById("play_again").style.display = "none"
    document.getElementById("timercontainer").style.display = "initial"
   }
+  const ui = document.getElementById("ui")
+  ui.focus()
   this.game.word = this.dictionarr.shift()
  document.getElementById("ui").value = null;
  if(this.game.word === undefined || this.player.score === 0) 
