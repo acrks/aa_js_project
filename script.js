@@ -187,6 +187,7 @@ newGame(e) {
 }
 
 handleLostLife() {
+  myLoseAudio.play()
   this.player.loseLife()
   const numLives = document.getElementById("lives")
   numLives.innerHTML = "Lives: ";
@@ -196,6 +197,7 @@ handleLostLife() {
 }
 
 handleWinPoints() {
+  myWinAudio.play()
   let pointsToAdd = (this.timeLeft) - this.timer.usedTime;
   this.player.winPoints(pointsToAdd);
   let numPoints = document.getElementById("points")
@@ -302,6 +304,10 @@ function LogIn() {
 }
 
 function handleAudio() {
+  if(!myAudio.play()) {
+    myAudio.play()
+  }
+  console.log(myAudio.duration)
   const music = document.getElementById("music_buttons")
   if(myAudio.volume === 0) {
     myAudio.volume = 0.5;
@@ -323,7 +329,8 @@ function startGame() {
   const g = new Game();
   const p1 = new Player();
   myAudio = new Audio('https://raw.githubusercontent.com/acrks/aa_js_project/main/bgmusic.mp3')
-  myAudio.play();
+  myWinAudio = new Audio('https://raw.githubusercontent.com/acrks/aa_js_project/main/win_music.mp3')
+  myLoseAudio = new Audio('https://raw.githubusercontent.com/acrks/aa_js_project/main/lose_music.mp3')
   const music = document.getElementById("music_buttons")
   music.addEventListener("click", handleAudio)
   new View(p1, g)

@@ -334,9 +334,9 @@ h2{
 }
 
 #music_buttons {
-    background-image: url("https://raw.githubusercontent.com/acrks/aa_js_project/main/audio_off.png");
+    background-image: url("https://raw.githubusercontent.com/acrks/aa_js_project/main/audio_on.png");
     width: 75px;
-    height: 75px;
+    height: 65px;
     background-repeat: no-repeat;
     background-size: contain;
 }
