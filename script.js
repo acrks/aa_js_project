@@ -296,11 +296,11 @@ function handleAudio() {
   const music = document.getElementById("music_buttons")
   if(myAudio.volume === 0) {
     myAudio.volume = 0.5;
-    music.style.backgroundImage = "url(/Users/aic/Desktop/Coding/aa_js_project/audio_off.png)"
+    music.style.backgroundImage = "url(https://raw.githubusercontent.com/acrks/aa_js_project/main/audio_off.png)"
   }
   else {
     myAudio.volume = 0;
-    music.style.backgroundImage = "url(/Users/aic/Desktop/Coding/aa_js_project/audio_on.png)"
+    music.style.backgroundImage = "url(https://raw.githubusercontent.com/acrks/aa_js_project/main/audio_on.png)"
   }
 }
 
@@ -313,7 +313,7 @@ function startGame() {
   startbox.style.display = "none"
   const g = new Game();
   const p1 = new Player();
-  myAudio = new Audio('/Users/aic/Desktop/Coding/aa_js_project/Lego Racers Music - Build Mode.mp3')
+  myAudio = new Audio('https://raw.githubusercontent.com/acrks/aa_js_project/main/bgmusic.mp3')
   myAudio.play();
   const music = document.getElementById("music_buttons")
   music.addEventListener("click", handleAudio)
