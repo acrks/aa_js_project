@@ -1,3 +1,4 @@
+// Create the player object, set the high score/score for that round to 0
 class Player {
   constructor(highscore = 0){
     this.lives = 3;
@@ -5,15 +6,18 @@ class Player {
     this.highscore = highscore;
   }
 
+// Decrements number of lives
   loseLife() {
     this.lives--;
   }
 
+// Add points to score
   winPoints(points) {
     this.score += points;
   }
 }
 
+// 
 class View {
  constructor(player, game) {
   this.player = player;
@@ -30,6 +34,8 @@ class View {
   this.createBoard()
   this.bindEvents()
 }
+
+
 
 populateDictionary() {
   let that = this;
@@ -48,6 +54,7 @@ populateDictionary() {
           }
           if(outcome) {
             that.dictionarr.push(result)
+            that.dictionarr.sort((a,b) => a.length - b.length);
           }        
         },
         error() {
@@ -228,11 +235,14 @@ handleWinPoints() {
 
 handleClick(e){
     e.preventDefault();
+    const a = document.getElementById("ui")
     if (e.key === "Enter") {
-      document.getElementById("ui_enter").click();
-      let wordToGuess = document.getElementById('ui');
-      this.game.answer = wordToGuess.value;
-      this.endOfGame()
+      if(a.value.length > 3) {
+        document.getElementById("ui_enter").click();
+        let wordToGuess = document.getElementById('ui');
+        this.game.answer = wordToGuess.value;
+        this.endOfGame()
+      }     
     }; 
   }
 }
@@ -294,7 +304,7 @@ function Countdown(seconds, view) {
 }
 
 function Game() {
-  // this.word = this.getRandomWord()
+  this.round = 1
 }
 
 Game.miniGames = [this.gameOne, this.gameTwo, this.gameThree]
