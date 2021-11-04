@@ -126,6 +126,8 @@ exitGame() {
 
 nextRound() {
   this.round += 1;
+  this.wordsThisRound++;
+  this.wordsCompleted = 0;
 }
 
 progressThroughRound() {
@@ -320,9 +322,6 @@ function Countdown(seconds, view) {
 }
 
 function Game() {
-  this.round = 1
-  this.wordsToGo = 3
-  this.wordsCompleted = 0
 }
 
 Game.miniGames = [this.gameOne, this.gameTwo, this.gameThree]
