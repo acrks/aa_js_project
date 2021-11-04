@@ -161,7 +161,7 @@ ul {
 .test {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     width: 25%;
 }
@@ -356,4 +356,10 @@ footer {
     justify-content: center;
     align-items:flex-end;
     margin-top: 20px;
+}
+
+.restartGame,
+.exitGame,
+#music_buttons {
+    cursor: pointer;
 }
