@@ -148,9 +148,6 @@ progressThroughRound() {
 randomTimeForTimer(max) {
   let minimumTime = 3
   let newTime = Math.floor(Math.random() * (max - minimumTime) + minimumTime) * 100
-  if(newTime < 300) {
-    newTime = minimumTime;
-  }
   return newTime
 }
 
