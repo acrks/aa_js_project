@@ -22,6 +22,9 @@ class View {
  constructor(player, game) {
   this.player = player;
   this.game = game;
+  this.round = 1;
+  this.wordsCompleted = 0;
+  this.wordsThisRound = 3;
   this.handleClick = this.handleClick.bind(this)
   this.newGame = this.newGame.bind(this)
   this.createBoard = this.createBoard.bind(this)
@@ -43,10 +46,10 @@ populateDictionary() {
   for(let i = 0; i < 100; i++) {
     $.ajax({
         type: 'GET',
-        url: "https://random-words-api.vercel.app/word",
+        url: "https://random-word-api.herokuapp.com/word",
         success(data) {
           let outcome = true;
-          let result = data[0].word.toLowerCase()
+          let result = data[0].toLowerCase()
           for(let i = 0; i < result.length; i++) {
             if(!alphabet.includes(result[i])) {
               outcome = false
@@ -54,7 +57,6 @@ populateDictionary() {
           }
           if(outcome) {
             that.dictionarr.push(result)
-            that.dictionarr.sort((a,b) => a.length - b.length);
           }        
         },
         error() {
@@ -71,7 +73,9 @@ createHUD() {
   this.timeLeft = 7;
   this.timeRemaining = true;  
   const numLives = document.getElementById("lives")
+  const numRounds = document.getElementById("rounds")
   numLives.innerHTML = "Lives: ";
+  numRounds.innerHTML = "Round: " + this.round;
   for(let i = 0; i < this.player.lives; i++) {
     numLives.innerHTML += '<img src = "https://raw.githubusercontent.com/acrks/aa_js_project/main/pixel-heart-2779422_960_720.png">'
   }
@@ -96,9 +100,9 @@ createBoard() {
   ui.focus()
   this.game.word = this.dictionarr.shift()
  document.getElementById("ui").value = null;
- if(this.game.word === undefined || this.player.score === 0) 
+ if(this.game.word === undefined || this.player.score === 0 || this.dictionarr.length === 0) 
  {this.timeLeft = 700
-  this.game.word = Game.STARTERWORDS[Math.floor(Math.random()*Game.STARTERWORDS.length)]}
+  this.game.word = Game.STARTERWORDS[Math.floor(Math.random() * Game.STARTERWORDS.length)]}
  else {
   this.timeLeft = this.randomTimeForTimer(this.game.word.length, this.game.word.length - 5);
  }
@@ -120,6 +124,14 @@ exitGame() {
   return
 }
 
+nextRound() {
+  this.round += 1;
+}
+
+progressThroughRound() {
+  this.wordsCompleted += 1;
+}
+
 randomTimeForTimer(max, min) {
   return Math.floor(Math.random() * (max - min) + min) * 100
 }
@@ -134,6 +146,7 @@ endOfGame() {
       myWinAudio.play()
     }
     this.handleWinPoints();
+    this.progressThroughRound();
   }
   else {
     this.handleLostLife();
@@ -152,6 +165,9 @@ endOfGame() {
   }
   this.timeRemaining = true
   this.game = new Game();
+  if(this.wordsCompleted === this.wordsThisRound) {
+    this.nextRound();
+  }
   this.displayMessage(outcome)
   setTimeout(this.createBoard, 5000)
 }
@@ -237,7 +253,7 @@ handleClick(e){
     e.preventDefault();
     const a = document.getElementById("ui")
     if (e.key === "Enter") {
-      if(a.value.length > 3) {
+      if(a.value.length > 2) {
         document.getElementById("ui_enter").click();
         let wordToGuess = document.getElementById('ui');
         this.game.answer = wordToGuess.value;
@@ -305,6 +321,8 @@ function Countdown(seconds, view) {
 
 function Game() {
   this.round = 1
+  this.wordsToGo = 3
+  this.wordsCompleted = 0
 }
 
 Game.miniGames = [this.gameOne, this.gameTwo, this.gameThree]

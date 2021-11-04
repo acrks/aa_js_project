@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200&display=swap');
 
 body {
     color: black;
@@ -212,10 +213,16 @@ ul {
     opacity: 0;
     animation: move-text 0.75s forwards;
     animation-iteration-count:infinite;
+    font-family: 'Balsamiq Sans', cursive;
 }
 
 #ui_enter {
     display: none;
+    
+}
+
+#ui {
+    font-family: 'Balsamiq Sans', cursive;
 }
 
 #userInput {
