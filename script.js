@@ -25,6 +25,7 @@ class View {
   this.round = 1;
   this.wordsCompleted = 0;
   this.wordsThisRound = 3;
+  this.initialTime
   this.handleClick = this.handleClick.bind(this)
   this.newGame = this.newGame.bind(this)
   this.createBoard = this.createBoard.bind(this)
@@ -57,6 +58,12 @@ populateDictionary() {
           }
           if(outcome) {
             that.dictionarr.push(result)
+            that.dictionarr.sort(function(a,b) {
+                // ASC  -> a.length - b.length
+                // DESC -> b.length - a.length
+                return a.length - b.length;
+              });
+              console.log(that.dictionarr)
           }        
         },
         error() {
@@ -100,11 +107,13 @@ createBoard() {
   ui.focus()
   this.game.word = this.dictionarr.shift()
  document.getElementById("ui").value = null;
- if(this.game.word === undefined || this.player.score === 0 || this.dictionarr.length === 0) 
- {this.timeLeft = 700
-  this.game.word = Game.STARTERWORDS[Math.floor(Math.random() * Game.STARTERWORDS.length)]}
+ if(this.game.word === undefined || this.round === 1 || this.dictionarr.length === 0) 
+ {
+   this.timeLeft = 700
+  this.game.word = Game.STARTERWORDS[Math.floor(Math.random() * Game.STARTERWORDS.length)]
+}
  else {
-  this.timeLeft = this.randomTimeForTimer(this.game.word.length, this.game.word.length - 5);
+  this.timeLeft = this.randomTimeForTimer(this.game.word.length);
  }
  document.getElementById("wordToType").innerHTML = `${this.game.word}` 
  this.timer = new Countdown(this.timeLeft, this)
@@ -128,14 +137,21 @@ nextRound() {
   this.round += 1;
   this.wordsThisRound++;
   this.wordsCompleted = 0;
+  const numRounds = document.getElementById("rounds")
+  numRounds.innerHTML = "Round: " + this.round;
 }
 
 progressThroughRound() {
   this.wordsCompleted += 1;
 }
 
-randomTimeForTimer(max, min) {
-  return Math.floor(Math.random() * (max - min) + min) * 100
+randomTimeForTimer(max) {
+  let minimumTime = 3
+  let newTime = Math.floor(Math.random() * (max - minimumTime) + minimumTime) * 100
+  if(newTime < 300) {
+    newTime = minimumTime;
+  }
+  return newTime
 }
 
 endOfGame() {
@@ -154,14 +170,14 @@ endOfGame() {
     this.handleLostLife();
     if(this.game.isOver(this.player)) {
       if(myAudio.currentTime > 0 && myAudio.volume > 0) {
-        myGameOverAudio.play()
+        myGameOverAudio.play();
       }
       this.initiateShutdown();
       return
     }
     else {
       if(myAudio.currentTime > 0 && myAudio.volume > 0) {
-        myLoseAudio.play()
+        myLoseAudio.play();
       }
     }
   }
@@ -205,15 +221,25 @@ displayMessage(won) {
   word.style.display = "none"
   if(won) {
     if(pointsToAdd === 1) {
-      messagebox.innerHTML = `YOU WON ${pointsToAdd} POINT.<br>GET READY FOR THE NEXT ROUND!`
+        messagebox.innerHTML = `YOU WON ${pointsToAdd} POINT.<br>GET READY FOR THE NEXT ROUND!`
+      }
+      else {
+        messagebox.innerHTML = `YOU WON ${pointsToAdd} POINTS.<br>GET READY FOR THE NEXT ROUND!`
+      }
     }
     else {
-      messagebox.innerHTML = `YOU WON ${pointsToAdd} POINTS.<br>GET READY FOR THE NEXT ROUND!`
+      messagebox.innerHTML = `YOU LOST A LIFE!<br>BE CAREFUL, YOU ONLY HAVE ${this.player.lives} LEFT`
     }
-  }
-  else {
-    messagebox.innerHTML = `YOU LOST A LIFE!<br>BE CAREFUL, YOU ONLY HAVE ${this.player.lives} LEFT`
-  }
+    messagebox.innerHTML += `<br>WORDS REMAINING THIS ROUND: ${this.wordsThisRound - this.wordsCompleted}`
+  setTimeout(function() {
+    messagebox.innerHTML = `NEXT ROUND BEGINS IN<br> 3`
+  }, 2000)
+  setTimeout(function() {
+    messagebox.innerHTML = `NEXT ROUND BEGINS IN<br>2`
+  }, 3000)
+  setTimeout(function() {
+    messagebox.innerHTML = `NEXT ROUND BEGINS IN<br>1`
+  }, 4000)
 }
 
 initiateShutdown() {
@@ -228,6 +254,9 @@ newGame(e) {
   e.preventDefault();
   this.player = new Player(this.player.highscore);
   this.game = new Game();
+  this.round = 1;
+  this.wordsCompleted = 0;
+  this.wordsThisRound = 3;
   this.createHUD()
   this.createBoard()
 }
