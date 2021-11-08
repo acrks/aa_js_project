@@ -229,13 +229,13 @@ displayMessage(won) {
     }
     messagebox.innerHTML += `<br>WORDS REMAINING THIS ROUND: ${this.wordsThisRound - this.wordsCompleted}`
   setTimeout(function() {
-    messagebox.innerHTML = `NEXT ROUND BEGINS IN<br> 3`
+    messagebox.innerHTML = `NEXT WORD IN:<br>3`
   }, 2000)
   setTimeout(function() {
-    messagebox.innerHTML = `NEXT ROUND BEGINS IN<br>2`
+    messagebox.innerHTML = `NEXT WORD IN:<br>2`
   }, 3000)
   setTimeout(function() {
-    messagebox.innerHTML = `NEXT ROUND BEGINS IN<br>1`
+    messagebox.innerHTML = `NEXT WORD IN:<br>1`
   }, 4000)
 }
 
