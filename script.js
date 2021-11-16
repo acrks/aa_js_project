@@ -44,33 +44,23 @@ class View {
 populateDictionary() {
   let that = this;
   let alphabet = "abcdefghijklmnopqrstuvwxyz"
-  for(let i = 0; i < 100; i++) {
     $.ajax({
         type: 'GET',
-        url: "https://random-word-api.herokuapp.com/word",
+        url: "https://random-word-api.herokuapp.com/word?number=100",
         success(data) {
-          let outcome = true;
-          let result = data[0].toLowerCase()
-          for(let i = 0; i < result.length; i++) {
-            if(!alphabet.includes(result[i])) {
-              outcome = false
+          for(let i = 0; i < data.length; i++) {
+              that.dictionarr.push(data[i])
             }
-          }
-          if(outcome) {
-            that.dictionarr.push(result)
             that.dictionarr.sort(function(a,b) {
                 // ASC  -> a.length - b.length
                 // DESC -> b.length - a.length
                 return a.length - b.length;
               });
-              console.log(that.dictionarr)
-          }        
         },
         error() {
           console.error("An error occurred.");
         },
      });
-    }
 }
 
 createHUD() {
